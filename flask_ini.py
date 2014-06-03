@@ -1,24 +1,24 @@
-import ConfigParser
+import configparser
 import warnings
 import datetime
 
 from flask import current_app
 
-class FlaskIni(ConfigParser.SafeConfigParser):
+class FlaskIni(configparser.ConfigParser):
     '''Subclass of ConfigParser.SafeConfigParser that must be run inside a
     flask app context. It looks for a special [flask] section of the config
     file and uses that to configure flask's own built-in variables.'''
 
     def read(self, *args, **kwargs):
         '''Overridden read() method to call parse_flask_section() at the end'''
-        ret = ConfigParser.SafeConfigParser.read(self, *args, **kwargs)
+        ret = super(FlaskIni, self).read(*args, **kwargs)
         self.parse_flask_section()
         return ret
 
     def readfp(self, *args, **kwargs):
         '''Overridden readfp() method to call parse_flask_section() at the
         end'''
-        ret = ConfigParser.SafeConfigParser.readfp(self, *args, **kwargs)
+        ret = super(FlaskIni, self).readfp(*args, **kwargs)
         self.parse_flask_section()
         return ret
 

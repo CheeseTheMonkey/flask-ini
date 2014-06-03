@@ -11,7 +11,8 @@ class BasicTestCase(unittest.TestCase):
     def setUp(self):
         test_config_file = StringIO.StringIO('''
 [flask]
-secret_key                 : 12345678 ; should be a string
+; should be a string - moved here as comments must be on separate lines
+secret_key                 : 12345678
 debug                      : true
 permanent_session_lifetime : 100
 server_name                = testserv
