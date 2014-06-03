@@ -27,6 +27,9 @@ warble = 123
 [foo bar]
 bar : http://baz/qux
 interp : %(bar)s/hi
+
+[baz]
+extends = foo bar
 ''')
         app = flask.Flask(__name__)
         with app.app_context():
@@ -82,6 +85,10 @@ interp : %(bar)s/hi
             self.app.iniconfig.get('flask', 'non-existent option')
 
         self.assertEqual(self.app.iniconfig.get('flask', 'non-existent option', fallback='value'), 'value')
+
+    def test_get(self):
+        self.assertEqual(self.app.iniconfig.get('baz', 'bar'),
+                                            'http://baz/qux')
 
 # Also test we can read OK from a file using the read() method
 class ReadFromFileTestCase(unittest.TestCase):

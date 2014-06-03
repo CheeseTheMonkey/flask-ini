@@ -1,13 +1,26 @@
-import configparser
+from configparser import ConfigParser, NoOptionError
 import warnings
 import datetime
 
 from flask import current_app
 
-class FlaskIni(configparser.ConfigParser):
+class FlaskIni(ConfigParser):
     '''Subclass of ConfigParser.SafeConfigParser that must be run inside a
     flask app context. It looks for a special [flask] section of the config
     file and uses that to configure flask's own built-in variables.'''
+
+    def get(self, section, option, **kwargs):
+        try:
+            ret = super(FlaskIni, self).get(section, option, **kwargs)
+        except NoOptionError as e:
+            if self.has_option(section, "extends"):
+                try:
+                    ret = super(FlaskIni, self).get(super(FlaskIni, self).get(section, "extends"), option, **kwargs)
+                except NoOptionError:
+                    raise e
+            else:
+                raise e
+        return ret
 
     def read(self, *args, **kwargs):
         '''Overridden read() method to call parse_flask_section() at the end'''

@@ -73,6 +73,11 @@ session_cookie_name = foobar
 [backend]
 endpoint = http://www.example.net/rest
 timeout = 360
+
+[other-backend]
+extends = backend
+timeout = 720
+; get('other-backend', 'endpoint') will return http://www.example.net/rest
 ```
 
 ### Application
