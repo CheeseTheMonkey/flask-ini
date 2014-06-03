@@ -1,7 +1,7 @@
 # Flask-ini
 
 Flask-ini is a Flask extension that allows your application to be
-configured with ConfigParser ini files.
+configured with configparser ini files.
 
 Reasons you may want to do this include:
 
@@ -22,7 +22,7 @@ Install the extension with the following commands:
 ## Usage
 
 The FlaskIni object is a subclass of
-[ConfigParser.SafeConfigParser](http://docs.python.org/2/library/configparser.html)
+[configparser.SafeConfigParser](https://docs.python.org/3/library/configparser.html)
 and all of its methods are available.
 
 When you use the `read()` or `readfp()` method, you must be in your
@@ -65,7 +65,8 @@ Please note the following:
 
 ```ini
 [flask]
-debug = true ; this is a comment
+; this is a comment
+debug = true
 secret_key = sesame1
 session_cookie_name = foobar
 
@@ -89,7 +90,7 @@ with app.app_context():
 def example():
     if app.debug: # True
         endpoint = app.iniconfig.get('backend', 'endpoint')
-        timeout  = app.iniconfig.getint('backend', 'timeout')
+        timeout  = app.iniconfig.getint('backend', 'timeout', fallback=300)
         return "Contacting endpoint %s for %d seconds" % (endpoint, timeout)
     else:
         return "Won't get here, thanks to the config file"

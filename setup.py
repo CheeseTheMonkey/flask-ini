@@ -2,18 +2,18 @@
 Flask-ini
 ---------
 
-Allow Flask to be configured with ConfigParser ini files.
+Allow Flask to be configured with configparser ini files.
 """
 from setuptools import setup
 
 setup(
     name='Flask-ini',
-    version='0.1.0',
+    version='0.2.0',
     url='https://github.com/trendmicro/flask-ini',
     license='BSD',
     author='Rich Daley',
     author_email='rich@richd.me',
-    description='Allow Flask to be configured with ConfigParser ini files',
+    description='Allow Flask to be configured with configparser ini files',
     long_description=__doc__,
     py_modules=['flask_ini'],
     zip_safe=False,
@@ -21,7 +21,7 @@ setup(
     platforms='any',
     install_requires=[
         'Flask',
-        'configparser',
+        'configparser'
     ],
     classifiers=[
         'Environment :: Web Environment',
